@@ -1,0 +1,5 @@
+{
+  "watch": ["app", "config", "framework", "typings", "index.ts"],
+  "ext": "ts,json",
+  "exec": "npx ts-node --files ./index.ts"
+}
