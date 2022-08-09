@@ -15,6 +15,7 @@ import * as constant from './lib/constant';
 import { Context as KoaContext } from 'koa';
 import { Application } from './lib/proto';
 import { Router, registerRouters } from './lib/router';
+import HttpTrigger from './trigger';
 
 @LifecycleHookUnit()
 export default class App implements ApplicationLifecycle {
@@ -32,10 +33,13 @@ export default class App implements ApplicationLifecycle {
   @Inject()
   koaRouter: Router;
 
+  @Inject()
+  trigger: HttpTrigger;
+
   @LifecycleHook('willReady')
   async initKoaApp() {
     this.koaApp.use(async (koaCtx: KoaContext, next) => {
-      const ctx = await this.app.trigger.initContext();
+      const ctx = await this.trigger.initContext();
       koaCtx.artusCtx = ctx;
 
       // set execution container
@@ -52,7 +56,7 @@ export default class App implements ApplicationLifecycle {
 
     // start artus pipeline in last koa middleware
     this.koaApp.use(async (koaCtx: KoaContext) => {
-      await this.app.trigger.startPipeline(koaCtx.artusCtx);
+      await this.trigger.startPipeline(koaCtx.artusCtx);
     });
   }
 

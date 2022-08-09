@@ -23,6 +23,9 @@ export default class WsApp implements ApplicationLifecycle {
   @Inject()
   container: Container;
 
+  @Inject()
+  trigger: WsTrigger;
+
   @LifecycleHook('didReady')
   async startWsServer() {
     let server: Server;
@@ -40,7 +43,7 @@ export default class WsApp implements ApplicationLifecycle {
 
     this.wss = new WebSocketServer({ server });
     this.container.set({ id: WebSocketServer, value: this.wss });
-    register(this.wss, this.app.trigger as WsTrigger);
+    register(this.wss, this.trigger);
   }
 
   @LifecycleHook()
