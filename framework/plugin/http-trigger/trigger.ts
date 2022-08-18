@@ -1,11 +1,9 @@
 import { Context, Next } from '@artus/pipeline';
-import { Trigger, Injectable, ScopeEnum } from '@artus/core';
+import { Trigger, Injectable } from '@artus/core';
 import { HTTP_OUTPUT, KOA_CONTEXT } from './lib/constant';
 import { Context as KoaContext } from 'koa';
 
-@Injectable({
-  scope: ScopeEnum.SINGLETON,
-})
+@Injectable()
 export default class KoaTrigger extends Trigger {
   constructor() {
     super();

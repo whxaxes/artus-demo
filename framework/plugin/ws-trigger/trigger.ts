@@ -1,7 +1,5 @@
-import { Trigger, Injectable, ScopeEnum } from '@artus/core';
+import { Trigger, Injectable } from '@artus/core';
 
-@Injectable({
-  scope: ScopeEnum.SINGLETON,
-})
+@Injectable()
 export default class WsTrigger extends Trigger {
 }
