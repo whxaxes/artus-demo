@@ -1,5 +1,5 @@
 import { Inject } from '@artus/core';
-import { HttpController, HttpMethod, HTTPMethodEnum, Request } from 'framework/plugin/http-trigger';
+import { HttpController, HttpMethod, HTTPMethodEnum, Request } from 'http-trigger';
 
 @HttpController()
 export default class HomeController {
