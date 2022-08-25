@@ -4,7 +4,7 @@ import { HTTP_OUTPUT, KOA_CONTEXT } from './lib/constant';
 import { Context as KoaContext } from 'koa';
 
 @Injectable({ scope: ScopeEnum.SINGLETON })
-export default class KoaTrigger extends Trigger {
+export class HttpTrigger extends Trigger {
   constructor() {
     super();
 

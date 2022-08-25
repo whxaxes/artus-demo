@@ -1,6 +1,6 @@
 import { controllerMap } from './scope';
 import { WebSocketServer, WebSocket } from 'ws';
-import WsTrigger from '../trigger';
+import { WsTrigger } from '../trigger';
 import { WS_EVENT_META, WS_REQUEST, WebSocketEvents } from './constant';
 import { EventParams } from './decorator';
 export const ReqUrlSymbol = Symbol('request#url');

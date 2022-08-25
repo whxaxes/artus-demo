@@ -1,10 +1,14 @@
 import { Inject } from '@artus/core';
 import { HttpController, HttpMethod, HTTPMethodEnum, Request } from 'http-trigger';
+import { TestKeyService } from '../service/TestKeyService';
 
 @HttpController()
-export default class HomeController {
+export class HomeController {
   @Inject()
   req: Request;
+
+  @Inject()
+  serv: TestKeyService;
 
   @HttpMethod({ method: HTTPMethodEnum.GET, path: '/' })
   async index() {
@@ -17,7 +21,7 @@ export default class HomeController {
   @HttpMethod({ method: HTTPMethodEnum.GET, path: '/test' })
   async test() {
     return {
-      body: '哟哟，切克闹',
+      body: await this.serv.getKey(),
     };
   }
 }

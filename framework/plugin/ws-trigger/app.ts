@@ -10,7 +10,7 @@ import { WebSocketServer } from 'ws';
 import { AddressInfo } from 'node:net';
 import http, { Server } from 'node:http';
 import { register } from './lib/router';
-import WsTrigger from './trigger';
+import { WsTrigger } from './trigger';
 import { Inject, Container } from '@artus/injection';
 
 @LifecycleHookUnit()

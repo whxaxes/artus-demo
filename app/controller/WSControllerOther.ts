@@ -8,7 +8,7 @@ import {
 } from 'ws-trigger';
 
 @WebSocketController('/other')
-export default class WSControllerOther {
+export class WSControllerOther {
   @Inject()
   ws: WebSocket;
 

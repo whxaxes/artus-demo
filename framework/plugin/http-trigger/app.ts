@@ -15,7 +15,7 @@ import * as constant from './lib/constant';
 import { Context as KoaContext } from 'koa';
 import { Application } from './lib/proto';
 import { Router, registerRouters } from './lib/router';
-import HttpTrigger from './trigger';
+import { HttpTrigger } from './trigger';
 
 @LifecycleHookUnit()
 export default class App implements ApplicationLifecycle {

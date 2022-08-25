@@ -7,7 +7,7 @@ import { Injectable, Inject, ScopeEnum } from '@artus/core';
 @Injectable({
   scope: ScopeEnum.EXECUTION,
 })
-export default class WebSocketConnection {
+export class WebSocketConnection {
   @Inject()
   wss: WebSocketServer;
 
