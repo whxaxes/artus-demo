@@ -1,6 +1,5 @@
-import { Injectable, ScopeEnum } from '@artus/core';
-import { controllerMap } from './scope';
-import { HTTPMethodEnum, HTTP_METHOD_META } from './constant';
+import { addTag, Injectable, ScopeEnum } from '@artus/core';
+import { HTTPMethodEnum, HTTP_METHOD_META, HTTP_CONTROLLER_TAG } from './constant';
 
 export interface HttpParams {
   method: HTTPMethodEnum;
@@ -9,7 +8,7 @@ export interface HttpParams {
 
 export function HttpController(): ClassDecorator {
   return (target: any) => {
-    controllerMap.add({ clazz: target });
+    addTag(HTTP_CONTROLLER_TAG, target);
     Injectable({ scope: ScopeEnum.EXECUTION })(target);
   };
 }

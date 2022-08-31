@@ -52,7 +52,7 @@ export default class App implements ApplicationLifecycle {
 
     this.koaApp.use(this.koaRouter.routes());
     this.koaApp.use(this.koaRouter.allowedMethods());
-    registerRouters(this.koaRouter);
+    registerRouters(this.container, this.koaRouter);
 
     // start artus pipeline in last koa middleware
     this.koaApp.use(async (koaCtx: KoaContext) => {

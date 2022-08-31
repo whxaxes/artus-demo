@@ -1,15 +1,15 @@
-import { Injectable, ScopeEnum } from '@artus/core';
+import { Container, Injectable, ScopeEnum } from '@artus/core';
 import { Context } from '@artus/pipeline';
 import EggRouter from '@eggjs/router';
-import { controllerMap } from './scope';
 import { HttpParams } from './decorator';
-import { HTTP_OUTPUT, HTTP_METHOD_META } from './constant';
+import { HTTP_OUTPUT, HTTP_METHOD_META, HTTP_CONTROLLER_TAG } from './constant';
 
 @Injectable({ scope: ScopeEnum.SINGLETON })
 export default class Router extends EggRouter {}
 
-export function registerRouters(router: Router) {
-  controllerMap.forEach(({ clazz }) => {
+export function registerRouters(container: Container, router: Router) {
+  const controllers = container.getInjectableByTag(HTTP_CONTROLLER_TAG);
+  controllers.forEach(clazz => {
     const keys = Reflect.getMetadataKeys(clazz)
       .filter(k => typeof k === 'string' && k.startsWith(HTTP_METHOD_META));
 

@@ -1,6 +1,5 @@
-import { Injectable, ScopeEnum } from '@artus/core';
-import { controllerMap } from './scope';
-import { WS_EVENT_META } from './constant';
+import { Injectable, ScopeEnum, addTag } from '@artus/core';
+import { WS_EVENT_META, WS_CONTROLLER_TAG, WS_CONTROLLER_PATH } from './constant';
 
 export interface EventParams {
   eventName: string;
@@ -8,7 +7,8 @@ export interface EventParams {
 
 export function WebSocketController(path: string): ClassDecorator {
   return (target: any) => {
-    controllerMap.add({ clazz: target, path });
+    addTag(WS_CONTROLLER_TAG,  target);
+    Reflect.defineMetadata(WS_CONTROLLER_PATH, path, target);
     Injectable({ scope: ScopeEnum.EXECUTION })(target);
   };
 }

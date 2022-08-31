@@ -1,7 +1,7 @@
-import { controllerMap } from './scope';
+import { Container } from '@artus/core';
 import { WebSocketServer, WebSocket } from 'ws';
 import { WsTrigger } from '../trigger';
-import { WS_EVENT_META, WS_REQUEST, WebSocketEvents } from './constant';
+import { WS_EVENT_META, WS_REQUEST, WebSocketEvents, WS_CONTROLLER_TAG, WS_CONTROLLER_PATH } from './constant';
 import { EventParams } from './decorator';
 export const ReqUrlSymbol = Symbol('request#url');
 
@@ -10,26 +10,28 @@ interface MatchClazz {
   events: Map<string, string[]>;
 }
 
-function initRules() {
+function initRules(container: Container) {
   const rules: Map<string, Map<any, MatchClazz>> = new Map();
-  controllerMap.forEach(info => {
-    const propertyKeys = Reflect.getMetadataKeys(info.clazz);
-    if (rules.has(info.path)) {
+  const wsControllers = container.getInjectableByTag(WS_CONTROLLER_TAG);
+  wsControllers.forEach(clazz => {
+    const controllerPath = Reflect.getMetadata(WS_CONTROLLER_PATH, clazz);
+    const propertyKeys = Reflect.getMetadataKeys(clazz);
+    if (rules.has(controllerPath)) {
       throw new Error('register duplicate ws controller');
     }
 
     const matchClazz: Map<any, MatchClazz> = new Map();
-    rules.set(info.path, matchClazz);
+    rules.set(controllerPath, matchClazz);
     propertyKeys.forEach(key => {
       if (typeof key !== 'string') return;
       if (!key.startsWith(WS_EVENT_META)) return;
 
-      const meta: EventParams = Reflect.getMetadata(key, info.clazz);
-      if (!matchClazz.has(info.clazz)) {
-        matchClazz.set(info.clazz, { clazz: info.clazz, events: new Map() });
+      const meta: EventParams = Reflect.getMetadata(key, clazz);
+      if (!matchClazz.has(clazz)) {
+        matchClazz.set(clazz, { clazz: clazz, events: new Map() });
       }
 
-      const existMatched = matchClazz.get(info.clazz)!;
+      const existMatched = matchClazz.get(clazz)!;
       if (!existMatched.events.has(meta.eventName)) {
         existMatched.events.set(meta.eventName, []);
       }
@@ -42,10 +44,11 @@ function initRules() {
 }
 
 export function register(
+  container: Container,
   wss: WebSocketServer,
   trigger: WsTrigger,
 ) {
-  const rules = initRules();
+  const rules = initRules(container);
   wss.on('connection', async (ws, req) => {
     const reqUrl = req.url;
     const matchClazz = rules.get(reqUrl);

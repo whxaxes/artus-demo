@@ -43,7 +43,7 @@ export default class WsApp implements ApplicationLifecycle {
 
     this.wss = new WebSocketServer({ server });
     this.container.set({ id: WebSocketServer, value: this.wss });
-    register(this.wss, this.trigger);
+    register(this.container, this.wss, this.trigger);
   }
 
   @LifecycleHook()
