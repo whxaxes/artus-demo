@@ -4,7 +4,7 @@
     "dev": "nodemon"
   },
   "dependencies": {
-    "@artus/core": "^1.0.0-beta.18",
+    "@artus/core": "beta",
     "@artus/injection": "^0.4.1",
     "@eggjs/router": "^2.0.1",
     "@types/koa": "^2.13.5",
