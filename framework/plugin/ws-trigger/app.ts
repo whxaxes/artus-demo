@@ -4,6 +4,7 @@ import {
   ApplicationLifecycle,
   LifecycleHook,
   ArtusInjectEnum,
+  Inject, Container,
 } from '@artus/core';
 
 import { WebSocketServer } from 'ws';
@@ -11,7 +12,6 @@ import { AddressInfo } from 'node:net';
 import http, { Server } from 'node:http';
 import { register } from './lib/router';
 import { WsTrigger } from './trigger';
-import { Inject, Container } from '@artus/injection';
 
 @LifecycleHookUnit()
 export default class WsApp implements ApplicationLifecycle {

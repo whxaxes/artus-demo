@@ -1,4 +1,4 @@
-import { Injectable, ScopeEnum } from '@artus/injection';
+import { Injectable, ScopeEnum } from '@artus/core';
 import { controllerMap } from './scope';
 import { HTTPMethodEnum, HTTP_METHOD_META } from './constant';
 

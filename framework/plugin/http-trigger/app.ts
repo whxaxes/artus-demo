@@ -4,12 +4,12 @@ import {
   ApplicationLifecycle,
   LifecycleHook,
   ArtusInjectEnum,
+  Inject, Container,
 } from '@artus/core';
 
 import { AddressInfo } from 'node:net';
 import http, { Server } from 'node:http';
 
-import { Inject, Container } from '@artus/injection';
 import * as constant from './lib/constant';
 
 import { Context as KoaContext } from 'koa';

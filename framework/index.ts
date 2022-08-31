@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 import { register } from 'tsconfig-paths';
-import { ArtusApplication } from '@artus/core';
-import { Scanner } from '@artus/core';
+import { ArtusApplication, Scanner } from '@artus/core';
 register();
 
 interface AppOption {

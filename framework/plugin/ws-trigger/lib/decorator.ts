@@ -1,4 +1,4 @@
-import { Injectable, ScopeEnum } from '@artus/injection';
+import { Injectable, ScopeEnum } from '@artus/core';
 import { controllerMap } from './scope';
 import { WS_EVENT_META } from './constant';
 
